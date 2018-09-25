@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: -webkit-gradient(linear, left top, right top, from(#e0c3fc), to(#8ec5fc));
+    background: -moz-linear-gradient(left, #e0c3fc, #8ec5fc);
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    color: #000;
+}
+
+.container {
+    background-color:#fff;
+    text-align: center;
+    margin: 200px auto;
+    width: 350px;
+    height: 500px;
+}
+
+.lista-tarefa__input{
+    width: 350px;
+    height: 100px;
+    border: 
+}
+
+::placeholder {
+    font-size: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.tarefa__titulo {
+    padding: 20px;
+}
+
+.tarefa__botao {
+    background-color: #ba7af8;
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px 50px;
+    border-radius: 5px;
+    border: 0;
+    margin-top: 5px;
+}
+
+/* ----Mediaquery 768px---- */
+@media (max-width: 768px){
+    .container{
+    width: 40%;
+    height: 600px;
+    }
+    .tarefa__titulo {
+        font-size: 16px;
+    }
+    .lista-tarefa__input {
+        width: 100%;
+        height: 100px;
+    }
+    ::placeholder {
+        font-size: 16px;
+    }
+
+}
+
+/* ----Mediaquery 420px---- */
+@media (max-width: 420px){
+    .container{
+    width: 70%;
+    height: 550px;
+    }
+
+    .tarefa__titulo {
+        font-size: 14px;
+    }
+
+    ::placeholder {
+        font-size: 12px;
+    }
