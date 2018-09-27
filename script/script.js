@@ -5,10 +5,17 @@ const tarefaCaixa = document.querySelector(".tarefa__caixa"); // criei uma const
 botaoAdd.addEventListener("click", function(evento){ // criei um escutador de evento para o botão de ADD a partir do "Click"
     evento.preventDefault(); // esta função começa previnido o evento padrão para evitar que se perca os dados coletados do input
   
-    if(inputTarefa.value === undefined || inputTarefa.value === null || inputTarefa.value === "" || inputTarefa.value === " "){ 
+    if(inputTarefa.value === undefined || inputTarefa.value === null){ 
     // faz validação do input para saber se está indefinido, nulo, vazio
        inputTarefa.focus(); // se caso esteja em alguma das opções acima, vai focar no campo de Input
        return false // retorna falso
+       }
+
+       // função para evitar que envie campos vazio no imput de texto
+       const regex = /\w+/ig;
+       if (!regex.test(inputTarefa.value)){
+           inputTarefa.focus();
+           return false
        }
 
     const itens = document.createElement("div"); // criei um elemento novo, uma DIV
