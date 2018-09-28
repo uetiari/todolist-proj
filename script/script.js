@@ -15,23 +15,41 @@ botaoAdd.addEventListener("click", function(evento){ // criei um escutador de ev
        const regex = /\w+/ig;
        if (!regex.test(inputTarefa.value)){
            inputTarefa.focus();
-           return false
+           return false;
        }
 
     const itens = document.createElement("div"); // criei um elemento novo, uma DIV
-        itens.setAttribute("draggable", "true");
+        itens.setAttribute("draggable", "true"); // dei um atributo a essa div para que ela fosse arrastável
         itens.className = "tarefa__itens"; // atribui uma classe para essa DIV nova
+        itens.id = Math.floor((1 + Math.random()) * 0x10000) // atribui uma id randômica para a constante itens
+        .toString(16)
+        .substring(1);
         itens.innerHTML = `<p> ${inputTarefa.value}</p>` // inclui nessa DIV um elemento Parágrafo  que pega o valor do Input escrito na Nova tarefa
         tarefaCaixa.appendChild(itens); // inclui essa DIV nova Div que já existia, que será onde ficarão as tarefas para editar
         itens.style.display = "flex"; // atribui um estilo para altarar no CSS de none para flex para aparecer no HTML
 
-        inputTarefa.value = null; // limpa o campo de input logo depois que envia a nova tarefa
-
-
-        itens.addEventListener("dragstart", function(drag){ // drga do elemento (funciona mas não mostra fantasminha)
-            console.log(drag.target)
-            
+        itens.addEventListener("dragstart", function(drag){ // evento de drag do elemento
+            drag.dataTransfer.setData("text", drag.target.id) // seleciona o tipo do elemento para dar drag, o id desse elemento
         })
+        
+        itens.addEventListener("dragover", function(e){ // quando terminar de carregar o elemento
+            e.preventDefault(); // previne o evento pradrão apenas
+        })
+
+        itens.addEventListener("drop", function(e){ // evento de drop do elemento
+            let pegou = document.getElementById(e.dataTransfer.getData("text")); // guarda o elemento que pegou no Drag em uma constante
+            let soltou = e.target  // criei uma constante para guardar o que soltou do elemento
+        
+            // fiz uma condição para que ele pegue sempre o elemento da constante Soltou
+            if(soltou.nodeName === "P" || soltou.nodeName === "BUTTON"){ // se o nome do nó for um parágrafo ou um botão
+                soltou = soltou.parentNode // a variável irá pegar o PAI desse nó(no caso a DIV da tarefa)
+            }
+            tarefaCaixa.insertBefore(pegou, soltou.nextSibling) // o pegou(o elemento novo), próximo da referência do Soltou, será inserido no TarefaCaixa
+        })
+        
+        inputTarefa.value = null; // limpa o campo de input logo depois que envia a nova tarefa
+        
+        
 // ---------------------------------- clique uma vez para marcar individualmente as tarefas concluídas
     itens.addEventListener("click", function(){  // criei um evento escutador de CLICK para a constante itens (acima)
         if(itens.classList.contains("tarefa__itens")){ // SE os itens contiverem a classe referida
@@ -84,5 +102,3 @@ botaoAdd.addEventListener("click", function(evento){ // criei um escutador de ev
     })
    
 })
-// drag and drop
-// reconhecer evento de drag no elemento que vai mover
